@@ -1,0 +1,6 @@
+.navbar-link {
+  text-decoration: none;
+}
+.navbar-link.active {
+  text-decoration: underline;
+}
