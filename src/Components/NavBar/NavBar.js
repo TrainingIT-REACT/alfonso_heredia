@@ -8,6 +8,8 @@ import Songs from '../Songs/Songs';
 
 import './NavBar.css'
 
+const NotFound = () => <p>Ups! Parece que aquí no hay nada (404)</p>;
+
 class NavBar extends Component {
 
   render() {
@@ -27,6 +29,7 @@ class NavBar extends Component {
           <Route path="/albumes" exact component={Albums} />
           <Route path="/albumes/:id" component={Songs} />
           <Route path="/about" component={About} />
+          <Route component={NotFound} />
         </div>
       </Router>
     );
