@@ -10,14 +10,7 @@ class Albums extends Component {
 
   componentDidMount() {
     this.setState({ loading: true })
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let id = params.get('id');
-    let url = 'http://localhost:3001/albums';
-    if (id) {
-      url = url + '?id=' + id;
-    }
-    fetch(url)
+    fetch('http://localhost:3001/albums')
       .then(albums => albums.json())
       .then(albums => this.setState({ albums, loading: false }))
   }
