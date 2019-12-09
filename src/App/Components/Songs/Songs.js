@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+// Acciones
+import { getAlbums } from '../../Actions/albums'
+import { getSongs } from '../../Actions/songs'
+
 import { Song } from './Song'
 import { Link } from "react-router-dom";
 
 import './songs.css'
 
 class Songs extends Component {
-  constructor(props){
+  /*constructor(props){
     super(props);
     this.state = {
       songs: [],
@@ -33,39 +39,66 @@ class Songs extends Component {
       this.setState({ loading: false })
     }
 
+  }*/
+
+  componentDidMount() {
+    this.props.getSongs(this.props.match.params.id);
+    this.props.getAlbums(this.props.match.params.id);
+  }
+
+  renderSongs() {
+    const { isLoading, error, songs} = this.props.songs;
+    const { albums } = this.props.albums;
+    const albumName = albums[0]
+      ? albums[0].name
+      : "El album que buscas no existe :(";
+    const albumCover = albums[0] ? albums[0].cover : null;
+    if (isLoading) {
+      return <p>loading...</p>
+    } else if (error) {
+      return <p>Hubo un error al obtener los datos :(</p>
+    } else {
+      return (
+        <div className="songs-wrapper">
+          <h1>Album {albumName}</h1>
+          <div className="cover">
+            <img src={albumCover} alt="album cover" />
+          </div>
+          <div className="songs">
+            {songs.map(
+              (song, i) =>
+                <Song
+                  key={song.id}
+                  id={song.id}
+                  name={song.name}
+                  album_id={song.album_id}
+                  audio={song.audio}
+                  seconds={song.seconds}
+                />
+            )}
+            <Link to='/albumes'>Volver</Link>
+          </div>
+        </div>
+      )
+    }
   }
 
   render() {
-    const { songs, album, loading } = this.state;
     return (
       <div className="page">
-        {loading
-          ? "loading..."
-          :
-          <div className="songs-wrapper">
-            <h1>Album {album.name}</h1>
-            <div className="cover">
-              <img src={album.cover} alt="album cover" />
-            </div>
-            <div className="songs">
-              {songs.map(
-                (song, i) =>
-                  <Song
-                    key={song.id}
-                    id={song.id}
-                    name={song.name}
-                    album_id={song.album_id}
-                    audio={song.audio}
-                    seconds= {song.seconds}
-                  />
-              )}
-            <Link to='/albumes'>Volver</Link>
-            </div>
-          </div>
-        }
+        {this.renderSongs()}
       </div>
     );
   }
 }
 
-export default Songs;
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+  getAlbums: albumId => dispatch(getAlbums(albumId)),
+  getSongs: albumId => dispatch(getSongs(albumId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Songs);
