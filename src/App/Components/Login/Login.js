@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
 
 // Contexto de usuario
 import UserContext from '../../Contexts/UserContext';
@@ -9,7 +10,14 @@ const Login = ({ location }) => {
     {({ signedIn, updateUser }) => {
       return <div>
         {signedIn ? (
-          <p>Ya puedes ir al panel de administración!</p>
+          <>
+            <p>Ya puedes ver tu profile</p>
+            <Redirect
+              to={{
+                pathname: '/profile',
+              }}
+            />
+          </>
         ) : (
             <>
               <button onClick={() => updateUser(true)}>Login</button>
