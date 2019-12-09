@@ -3,16 +3,25 @@ import React, { Component } from 'react';
 import {Album} from './Album'
 
 class Albums extends Component {
-  state = {
-    albums: [],
-    loading: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      albums: [],
+      loading: false,
+    }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({ loading: true })
-    fetch('http://localhost:3001/albums')
-      .then(albums => albums.json())
-      .then(albums => this.setState({ albums, loading: false }))
+    try {
+      const response = await fetch('http://localhost:3001/albums');
+      const albumsData = await response.json();
+      this.setState({ albums: albumsData, loading: false });
+    }
+    catch (error) {
+      console.log(error);
+      this.setState({albums:[], loading:[false]});
+    }
   }
 
   render() {

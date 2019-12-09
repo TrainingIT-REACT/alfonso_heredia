@@ -2,40 +2,65 @@ import React, { Component } from 'react';
 import { Song } from './Song'
 import { Link } from "react-router-dom";
 
+import './songs.css'
+
 class Songs extends Component {
-  state = {
-    songs: [],
-    loading: false
+  constructor(props){
+    super(props);
+    this.state = {
+      songs: [],
+      loading: false,
+      album: {}
+    }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({ loading: true })
-    fetch('http://localhost:3001/songs?album_id=' + this.props.match.params.id)
-      .then(songs => songs.json())
-      .then(songs => this.setState({ songs, loading: false }))
+    try {
+      const responseSongs = await fetch('http://localhost:3001/songs?album_id=' + this.props.match.params.id);
+      const songsData = await responseSongs.json();
+      this.setState({ songs: songsData});
+
+      const responseAlbum = await fetch('http://localhost:3001/albums?id=' + this.props.match.params.id);
+      const albumData = await responseAlbum.json();
+      this.setState({ album: albumData[0]});
+    }
+    catch (error) {
+      console.log(error);
+      this.setState({ songs: [], loading: [false] });
+    }
+    finally {
+      this.setState({ loading: false })
+    }
+
   }
 
   render() {
-    const { songs, loading } = this.state;
+    const { songs, album, loading } = this.state;
     return (
       <div className="page">
         {loading
           ? "loading..."
           :
-          <div>
-            <h1>Canciones del album</h1>
+          <div className="songs-wrapper">
+            <h1>Canciones del album {album.name}</h1>
+            <div className="cover">
+              <img src={album.cover} alt="album cover" />
+            </div>
+            <div className="songs">
+              {songs.map(
+                (song, i) =>
+                  <Song
+                    key={song.id}
+                    id={song.id}
+                    name={song.name}
+                    album_id={song.album_id}
+                    audio={song.audio}
+                    seconds= {song.seconds}
+                  />
+              )}
             <Link to='/albumes'>Volver</Link>
-            {songs.map(
-              (song, i) =>
-                <Song
-                  key={song.id}
-                  id={song.id}
-                  name={song.name}
-                  album_id={song.album_id}
-                  audio={song.audio}
-                  seconds= {song.seconds}
-                />
-            )}
+            </div>
           </div>
         }
       </div>

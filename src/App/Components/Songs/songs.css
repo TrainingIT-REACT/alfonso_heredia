@@ -1,0 +1,8 @@
+.songs-wrapper .cover {
+  float: left;
+  width: 50%;
+}
+
+.songs-wrapper .cover img {
+  width: 75%;
+}
