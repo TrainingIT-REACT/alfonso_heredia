@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, NavLink } from 'react-router-dom';
 
 import Home from '../Home/Home';
 import Albums from '../Albums/Albums';
@@ -25,11 +25,13 @@ class NavBar extends Component {
           <div className="navbar-container">
             <NavLink to="/about" activeClassName="active" className="navbar-link">About</NavLink>
           </div>
-          <Route path="/" exact component={Home} />
-          <Route path="/albumes" exact component={Albums} />
-          <Route path="/albumes/:id" component={Songs} />
-          <Route path="/about" component={About} />
-          <Route component={NotFound} />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/albumes" exact component={Albums} />
+            <Route path="/albumes/:id" component={Songs} />
+            <Route path="/about" component={About} />
+            <Route component={NotFound} />
+          </Switch>
         </div>
       </Router>
     );
