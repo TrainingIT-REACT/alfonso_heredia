@@ -43,7 +43,7 @@ class Songs extends Component {
           ? "loading..."
           :
           <div className="songs-wrapper">
-            <h1>Canciones del album {album.name}</h1>
+            <h1>Album {album.name}</h1>
             <div className="cover">
               <img src={album.cover} alt="album cover" />
             </div>
