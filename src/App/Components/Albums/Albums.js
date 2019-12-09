@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+// Acciones
+import { getAlbums } from '../../Actions/albums'
 
 import {Album} from './Album'
 
 class Albums extends Component {
-  constructor(props) {
+  /*constructor(props) {
     super(props);
     this.state = {
       albums: [],
       loading: false,
     }
-  }
+  }*/
 
-  async componentDidMount() {
+  /*async componentDidMount() {
     this.setState({ loading: true })
     try {
       const response = await fetch('http://localhost:3001/albums');
@@ -22,32 +26,55 @@ class Albums extends Component {
       console.log(error);
       this.setState({albums:[], loading:[false]});
     }
+  }*/
+
+  componentDidMount() {
+    this.props.getAlbums();
   }
 
-  render() {
-    const { albums, loading } = this.state;
-    return (
-      <div className="page">
-        {loading
-          ? "loading..."
-          :
+  renderAlbums() {
+    const { isLoading, error, albums } = this.props.albums;
+
+    if (isLoading) {
+      return <p>loading...</p>
+    } else if (error) {
+      return <p>Hubo un error al obtener los datos :(</p>
+    } else {
+      return (
         <div>
           <h1>Listado de Albums de la aplicacion</h1>
           {albums.map(
-            (album, i) =>
+            (album) =>
               <Album
                 key={album.id}
-                id = {album.id}
+                id={album.id}
                 name={album.name}
                 artist={album.artist}
                 cover={album.cover}
               />
           )}
         </div>
-        }
+      )
+    }
+  }
+
+  render() {
+    return (
+      <div className="page">
+        {this.renderAlbums()}
       </div>
     );
   }
 }
+const mapStateToProps = (state) => ({
+  ...state
+});
 
-export default Albums;
+const mapDispatchToProps = (dispatch) => ({
+  getAlbums: () => dispatch(getAlbums()),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Albums);
