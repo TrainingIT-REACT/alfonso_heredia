@@ -15,6 +15,7 @@ import Error from "./Components/Error/Error";
 import UserContext from './Contexts/UserContext'
 
 // Css
+import './bootstrap.min.css';
 import './App.css';
 
 const NotFound = () => <p>Ups! Parece que aquí no hay nada (404)</p>;

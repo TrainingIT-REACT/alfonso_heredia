@@ -6,10 +6,13 @@ import './album.css'
 
 export const Album = ({ id, name, artist, cover }) => {
   return (
-    <Link className="album" to={`albumes/${id}`}>
-      <div className="title">{name}</div>
-      <div>by: {artist}</div>
-      <img src={cover} alt="album cover" />
-    </Link>
+    <div className="card" style={{width: "18rem", float: "left" , margin:"1rem"}}>
+      <img src={cover} className="card-img-top" alt={name} />
+      <div className="card-body">
+        <h5 className="card-title">{name}</h5>
+        <p className="card-text">by: {artist}</p>
+        <Link className="album btn btn-primary" to={`albumes/${id}`} style={{width:"50%"}}>Detalles</Link>
+      </div>
+    </div>
   )
 }
