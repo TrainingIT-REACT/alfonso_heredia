@@ -1,8 +1,8 @@
 .album {
   display: inline-block;
-  width: 200px;
-  margin-left: 16px;
-  margin-bottom: 16px;
+  width: 20%;
+  margin-left: 10%;
+  margin-bottom: 5%;
   padding: 4px;
   border: 2px solid transparent;
   text-decoration: none;
@@ -15,5 +15,5 @@
   font-weight: bold;
 }
 .album img {
-  width: 150px;
+  width: 100%;
 }
