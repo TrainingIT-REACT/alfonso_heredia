@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getSongs } from '../../Actions/songs'
-import { Song } from '../Songs/Song'
+import { getSongs } from '../../Actions/songs';
+import { getAlbums } from '../../Actions/albums';
+
+import { Song } from '../Songs/Song';
+import { Album } from '../Albums/Album';
 
 class Home extends Component {
 
@@ -35,10 +38,39 @@ class Home extends Component {
     }
   };
 
+  renderCustomAlbums() {
+    const { albums, isLoading, error } = this.props.albums;
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
+    else if (error) {
+      return <p>Hubo un error al obtener los datos :(</p>;
+    }
+    else {
+      return (
+        <div>
+          {albums.slice(0, 3).map(
+            (album) =>
+              <Album
+                key={album.id}
+                id={album.id}
+                name={album.name}
+                artist={album.artist}
+                cover={album.cover}
+              />
+          )}
+        </div>
+      )
+    }
+  };
+
   render() {
     return (
       <div className="page">
         <h1 className="text-center">Reactify</h1>
+        <h2 className="text-center clearfix">Albumes mas descargados</h2>
+        {this.renderCustomAlbums()}
+        <div className="clearfix" />
         <h2 className="text-center">Canciones mas escuchadas</h2>
         {this.renderCustomSongs()}
       </div>
@@ -47,6 +79,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.getSongs();
+    this.props.getAlbums();
   }
 }
 
@@ -55,6 +88,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  getAlbums: () => dispatch(getAlbums()),
   getSongs: () => dispatch(getSongs())
 });
 
