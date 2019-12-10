@@ -1,3 +1,7 @@
+.song {
+  width: 33%;
+  float: left;
+}
 .song .title {
   margin-bottom: 2px;
 }
