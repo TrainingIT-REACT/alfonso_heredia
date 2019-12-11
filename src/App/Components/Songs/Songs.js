@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getAlbums } from '../../Actions/albums'
 import { getSongs } from '../../Actions/songs'
 
-import { Song } from './Song'
+import Song  from './Song';
 import { Link } from "react-router-dom";
 
 import './songs.css'
@@ -60,7 +60,7 @@ class Songs extends Component {
     } else {
       return (
         <div className="songs-wrapper">
-          <h1>Album {albumName}</h1>
+          <h2 className="bg-secondary text-white text-center rounded m-3">Album {albumName}</h2>
           <div className="cover">
             <img src={albumCover} alt="album cover" />
           </div>
@@ -76,7 +76,7 @@ class Songs extends Component {
                   seconds={song.seconds}
                 />
             )}
-            <Link to='/albumes'>Volver</Link>
+            <Link className="text-primary" to='/albumes'>Volver</Link>
           </div>
         </div>
       )

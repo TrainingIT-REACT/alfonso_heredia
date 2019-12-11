@@ -42,7 +42,7 @@ class Albums extends Component {
     } else {
       return (
         <div>
-          <h1>Listado de Albums de la aplicacion</h1>
+          <h2 className="bg-secondary text-white text-center rounded m-3">Listado de Albums de la aplicacion</h2>
           {albums.map(
             (album) =>
               <Album

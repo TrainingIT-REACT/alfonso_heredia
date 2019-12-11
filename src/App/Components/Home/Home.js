@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getSongs } from '../../Actions/songs';
 import { getAlbums } from '../../Actions/albums';
 
-import { Song } from '../Songs/Song';
+import Song from '../Songs/Song';
 import { Album } from '../Albums/Album';
 
 class Home extends Component {
@@ -68,11 +68,11 @@ class Home extends Component {
     return (
       <div className="page">
         <h1 className="text-center">Reactify</h1>
-        <h2 className="text-center clearfix">Albumes mas descargados</h2>
-        {this.renderCustomAlbums()}
-        <div className="clearfix" />
-        <h2 className="text-center">Canciones mas escuchadas</h2>
+        <h2 className="bg-secondary text-white text-center rounded m-3">Canciones mas escuchadas</h2>
         {this.renderCustomSongs()}
+        <div className="clearfix" />
+        <h2 className="bg-secondary text-white text-center rounded m-3">Albumes mas descargados</h2>
+        {this.renderCustomAlbums()}
       </div>
     );
   }

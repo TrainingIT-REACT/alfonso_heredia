@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 // Contexto de usuario
 import UserContext from '../../Contexts/UserContext';
