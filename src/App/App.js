@@ -30,13 +30,14 @@ class App extends Component {
     super(props);
     this.state = {
       signedIn: false,
+      username: '',
       updateUser: this.updateUser
     }
   }
 
   onReset = () => this.setState({});
-  updateUser = (signedIn) => {
-    this.setState(() => ({ signedIn }));
+  updateUser = (signedIn, username) => {
+    this.setState(() => ({ signedIn, username }));
   }
 
   render() {
