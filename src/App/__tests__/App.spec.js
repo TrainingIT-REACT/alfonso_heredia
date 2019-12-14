@@ -9,4 +9,18 @@ describe(App, () => {
     const wrapper = render(<App />);
     expect(wrapper).toMatchSnapshot();
   });
+
+  describe("Render", () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = render(<App />);
+    });
+
+    it('should add the HTML elements', () => {
+      expect(wrapper.is('div')).toBeTruthy();
+      expect(wrapper.find('h1').length).toBe(1);
+      expect(wrapper.find('h2').length).toBe(2);
+    });
+  });
 })
