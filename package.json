@@ -12,7 +12,7 @@
     "redux-promise-middleware": "5.1.1",
     "redux-promise-middleware-actions": "2.1.0",
     "serialize-javascript": "^2.1.1",
-    "set-value": "^2.0.1"
+    "set-value": "^4.0.1"
   },
   "scripts": {
     "start": "npm-run-all --parallel client server",
